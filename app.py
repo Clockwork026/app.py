@@ -117,6 +117,44 @@ def ejecutar_buscar_precio(productos, inventario):
     else:
         print("No existen productos en ese rango de precio.")
 
+def validar_precio(precio):
+    return precio > 0
+
+
+def actualizar_precio(codigo, nuevo_precio, productos):
+    codigo = codigo.upper()
+
+    if buscar_codigo(codigo, productos):
+        productos[codigo][2] = nuevo_precio
+        return True
+
+    return False
+
+
+def ejecutar_actualizar_precio(productos):
+    while True:
+        codigo = input("Ingrese código del producto: ").strip().upper()
+
+        if validar_texto(codigo):
+            break
+        else:
+            print("El código no puede estar vacío.")
+
+    while True:
+        nuevo_precio = leer_entero("Ingrese nuevo precio: ")
+
+        if validar_precio(nuevo_precio):
+            break
+        else:
+            print("El precio debe ser mayor que 0.")
+
+    actualizado = actualizar_precio(codigo, nuevo_precio, productos)
+
+    if actualizado:
+        print("Precio actualizado.")
+    else:
+        print("Código inexistente.")
+
 def ejecutar_programa():
 
     productos = {
@@ -146,7 +184,7 @@ def ejecutar_programa():
             ejecutar_buscar_precio(productos, inventario)
 
         elif opcion == 3:
-            pass
+            ejecutar_actualizar_precio(productos)
 
         elif opcion == 4:
             pass
