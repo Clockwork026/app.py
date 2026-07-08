@@ -22,6 +22,46 @@ def leer_opcion():
         except ValueError:
             print("Debe seleccionar una opción válida")
 
+def validar_texto(texto):
+    return texto.strip() != ""
+
+
+def buscar_codigo(codigo, productos):
+    codigo = codigo.upper()
+
+    for cod in productos:
+        if cod.upper() == codigo:
+            return True
+
+    return False
+
+
+def leer_texto_no_vacio(mensaje):
+    while True:
+        texto = input(mensaje).strip()
+
+        if validar_texto(texto):
+            return texto
+        else:
+            print("El dato no puede estar vacío.")
+
+
+def stock_categoria(categoria, productos, inventario):
+    total = 0
+
+    for codigo in productos:
+        datos = productos[codigo]
+
+        if datos[1].lower() == categoria.lower():
+            total = total + inventario[codigo][0]
+
+    print("Stock disponible:", total)
+
+
+def ejecutar_stock_categoria(productos, inventario):
+    categoria = leer_texto_no_vacio("Ingrese categoría: ")
+    stock_categoria(categoria, productos, inventario)
+
 def ejecutar_programa():
 
     productos = {
@@ -45,7 +85,7 @@ def ejecutar_programa():
         opcion = leer_opcion()
 
         if opcion == 1:
-            pass
+            ejecutar_stock_categoria(productos, inventario)
 
         elif opcion == 2:
             pass
@@ -68,5 +108,3 @@ def ejecutar_programa():
 
 
 ejecutar_programa()
-
-#hola
