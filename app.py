@@ -305,6 +305,25 @@ def ejecutar_eliminar_producto(productos, inventario):
     else:
         print("Código inexistente.")
 
+def mostrar_productos(productos, inventario):
+
+    for codigo in productos:
+
+        print("\nCODIGO:", codigo)
+        print("--------------------------")
+        print("Nombre:", productos[codigo][0])
+        print("Categoría:", productos[codigo][1])
+        print("Precio: $" + str(productos[codigo][2]))
+        print("Disponible:", productos[codigo][3])
+        print("Stock:", inventario[codigo][0])
+        print("Vendidos:", inventario[codigo][1])
+        print("--------------------------")
+
+
+def ejecutar_mostrar_productos(productos, inventario):
+    mostrar_productos(productos, inventario)
+
+
 def ejecutar_programa():
 
     productos = {
@@ -343,7 +362,7 @@ def ejecutar_programa():
             ejecutar_eliminar_producto(productos, inventario)
 
         elif opcion == 6:
-            pass
+            ejecutar_mostrar_productos(productos, inventario)
 
         elif opcion == 7:
             print("Programa finalizado.")
