@@ -132,28 +132,36 @@ def actualizar_precio(codigo, nuevo_precio, productos):
 
 
 def ejecutar_actualizar_precio(productos):
-    while True:
-        codigo = input("Ingrese código del producto: ").strip().upper()
-
-        if validar_texto(codigo):
-            break
-        else:
-            print("El código no puede estar vacío.")
 
     while True:
-        nuevo_precio = leer_entero("Ingrese nuevo precio: ")
 
-        if validar_precio(nuevo_precio):
-            break
+        while True:
+            codigo = input("Ingrese código del producto: ").strip().upper()
+
+            if validar_texto(codigo):
+                break
+            else:
+                print("El código no puede estar vacío.")
+
+        while True:
+            nuevo_precio = leer_entero("Ingrese nuevo precio: ")
+
+            if validar_precio(nuevo_precio):
+                break
+            else:
+                print("El precio debe ser mayor que 0.")
+
+        actualizado = actualizar_precio(codigo, nuevo_precio, productos)
+
+        if actualizado:
+            print("Precio actualizado.")
         else:
-            print("El precio debe ser mayor que 0.")
+            print("Código inexistente.")
 
-    actualizado = actualizar_precio(codigo, nuevo_precio, productos)
+        continuar = input("¿Desea actualizar otro producto? (s/n): ").strip().lower()
 
-    if actualizado:
-        print("Precio actualizado.")
-    else:
-        print("Código inexistente.")
+        if continuar != "s":
+            break
 
 def validar_codigo(codigo, productos):
     codigo = codigo.upper()
