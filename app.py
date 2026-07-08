@@ -62,6 +62,61 @@ def ejecutar_stock_categoria(productos, inventario):
     categoria = leer_texto_no_vacio("Ingrese categoría: ")
     stock_categoria(categoria, productos, inventario)
 
+def leer_entero(mensaje):
+    while True:
+        try:
+            numero = int(input(mensaje))
+            return numero
+        except ValueError:
+            print("Debe ingresar un número entero.")
+
+
+def buscar_precio(precio_min, precio_max, productos, inventario):
+    encontrados = []
+
+    for codigo in productos:
+        precio = productos[codigo][2]
+        stock = inventario[codigo][0]
+
+        if precio >= precio_min and precio <= precio_max and stock > 0:
+            nombre = productos[codigo][0]
+            encontrados.append(nombre + "--" + codigo)
+
+    encontrados.sort()
+
+    return encontrados
+
+
+def ejecutar_buscar_precio(productos, inventario):
+
+    while True:
+        precio_min = leer_entero("Ingrese precio mínimo: ")
+
+        if precio_min >= 0:
+            break
+        else:
+            print("El precio mínimo debe ser mayor o igual a 0.")
+
+    while True:
+        precio_max = leer_entero("Ingrese precio máximo: ")
+
+        if precio_max >= 0:
+            break
+        else:
+            print("El precio máximo debe ser mayor o igual a 0.")
+
+    if precio_min > precio_max:
+        print("El precio mínimo no puede ser mayor que el precio máximo.")
+        return
+
+    productos_encontrados = buscar_precio(precio_min, precio_max, productos, inventario)
+
+    if len(productos_encontrados) > 0:
+        print("\nProductos encontrados:")
+        print(productos_encontrados)
+    else:
+        print("No existen productos en ese rango de precio.")
+
 def ejecutar_programa():
 
     productos = {
@@ -88,7 +143,7 @@ def ejecutar_programa():
             ejecutar_stock_categoria(productos, inventario)
 
         elif opcion == 2:
-            pass
+            ejecutar_buscar_precio(productos, inventario)
 
         elif opcion == 3:
             pass
