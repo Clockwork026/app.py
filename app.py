@@ -155,6 +155,128 @@ def ejecutar_actualizar_precio(productos):
     else:
         print("Código inexistente.")
 
+def validar_codigo(codigo, productos):
+    codigo = codigo.upper()
+
+    if not validar_texto(codigo):
+        return False
+
+    if buscar_codigo(codigo, productos):
+        return False
+
+    return True
+
+
+def validar_nombre(nombre):
+    return validar_texto(nombre)
+
+
+def validar_categoria(categoria):
+    return validar_texto(categoria)
+
+
+def validar_disponible(opcion):
+    opcion = opcion.lower()
+
+    return opcion == "s" or opcion == "n"
+
+
+def validar_stock(stock):
+    return stock >= 0
+
+
+def validar_vendidos(vendidos):
+    return vendidos >= 0
+
+
+def agregar_producto(codigo, nombre, categoria, precio, disponible,
+                     stock, vendidos, productos, inventario):
+
+    codigo = codigo.upper()
+
+    if disponible.lower() == "s":
+        disponible = True
+    else:
+        disponible = False
+
+    productos[codigo] = [nombre, categoria, precio, disponible]
+    inventario[codigo] = [stock, vendidos]
+
+    return True
+
+
+def ejecutar_agregar_producto(productos, inventario):
+
+    while True:
+        codigo = input("Ingrese código: ").strip().upper()
+
+        if validar_codigo(codigo, productos):
+            break
+        else:
+            print("Código inválido o ya existe.")
+
+    while True:
+        nombre = input("Ingrese nombre: ").strip()
+
+        if validar_nombre(nombre):
+            break
+        else:
+            print("Nombre inválido.")
+
+    while True:
+        categoria = input("Ingrese categoría: ").strip()
+
+        if validar_categoria(categoria):
+            break
+        else:
+            print("Categoría inválida.")
+
+    while True:
+        precio = leer_entero("Ingrese precio: ")
+
+        if validar_precio(precio):
+            break
+        else:
+            print("Precio inválido.")
+
+    while True:
+        disponible = input("Disponible (s/n): ").strip().lower()
+
+        if validar_disponible(disponible):
+            break
+        else:
+            print("Debe ingresar s o n.")
+
+    while True:
+        stock = leer_entero("Ingrese stock: ")
+
+        if validar_stock(stock):
+            break
+        else:
+            print("Stock inválido.")
+
+    while True:
+        vendidos = leer_entero("Ingrese vendidos: ")
+
+        if validar_vendidos(vendidos):
+            break
+        else:
+            print("Cantidad inválida.")
+
+    agregar_producto(
+        codigo,
+        nombre,
+        categoria,
+        precio,
+        disponible,
+        stock,
+        vendidos,
+        productos,
+        inventario
+    )
+
+    print("Producto agregado.")
+
 def ejecutar_programa():
 
     productos = {
@@ -187,7 +309,7 @@ def ejecutar_programa():
             ejecutar_actualizar_precio(productos)
 
         elif opcion == 4:
-            pass
+            ejecutar_agregar_producto(productos, inventario)
 
         elif opcion == 5:
             pass
