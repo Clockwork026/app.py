@@ -277,6 +277,34 @@ def ejecutar_agregar_producto(productos, inventario):
 
     print("Producto agregado.")
 
+def eliminar_producto(codigo, productos, inventario):
+    codigo = codigo.upper()
+
+    if buscar_codigo(codigo, productos):
+        del productos[codigo]
+        del inventario[codigo]
+        return True
+
+    return False
+
+
+def ejecutar_eliminar_producto(productos, inventario):
+
+    while True:
+        codigo = input("Ingrese código del producto: ").strip().upper()
+
+        if validar_texto(codigo):
+            break
+        else:
+            print("El código no puede estar vacío.")
+
+    eliminado = eliminar_producto(codigo, productos, inventario)
+
+    if eliminado:
+        print("Producto eliminado.")
+    else:
+        print("Código inexistente.")
+
 def ejecutar_programa():
 
     productos = {
@@ -312,7 +340,7 @@ def ejecutar_programa():
             ejecutar_agregar_producto(productos, inventario)
 
         elif opcion == 5:
-            pass
+            ejecutar_eliminar_producto(productos, inventario)
 
         elif opcion == 6:
             pass
